@@ -2,12 +2,12 @@ services:
   robot:
     image: registry.paas.psnc.pl/icos/agrorob_emu:latest # from registry
     # build: . # from source
-    # network_mode: "host"
+    network_mode: "host" # bez tego emulator nie działa
   zenoh-bridge:
     image: "eclipse/zenoh-bridge-ros2dds:main"
-    ports: 
-        - 7447:7447
-        - 8000:8000
+    # ports:
+    #  - 7447:7447
+    #  - 8000:8000
     volumes:
       - ./data:/root/.zenoh-bridge-ros2dds # empty volume
       - ./entrypoint.sh:/entrypoint.sh:ro # zenoh bridge entrypoint file
@@ -15,4 +15,4 @@ services:
     network_mode: "host"
     env_file:
       - ./environment.env # env variables
-    entrypoint: /entrypoint.sh 
+    entrypoint: /entrypoint.sh
